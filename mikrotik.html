@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alight Motion Showcase | Diki Wahyudin</title>
+    <link rel="stylesheet" href="Portofolio.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap">
+    <style>
+        :root {
+            --bg-dark: #0a0512;
+            --card-bg: rgba(20, 10, 35, 0.45);
+            --card-border: rgba(188, 19, 254, 0.2);
+            --accent-purple: #bc13fe;
+            --accent-neon: #3e00e9;
+            --text-main: #f0ebf8;
+            --text-muted: #a69cb3;
+            --font-sans: 'Poppins', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            min-height: 100vh;
+            padding-top: 100px;
+        }
+
+        /* Background Video Overlay */
+        .video-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .video-bg {
+            width: 100%; height: 100%;
+            object-fit: cover;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(
+                135deg, 
+                rgba(10, 5, 18, 0.92) 0%, 
+                rgba(20, 5, 35, 0.85) 50%, 
+                rgba(5, 10, 20, 0.92) 100%
+            );
+            z-index: -1;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 8%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar .logo {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+            color: #fff;
+            text-decoration: none;
+            text-shadow: 0 0 10px var(--accent-purple);
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            border-radius: 8px;
+            background: rgba(188, 19, 254, 0.15);
+            border: 1px solid var(--accent-purple);
+            color: var(--text-main);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-back:hover {
+            background: var(--accent-purple);
+            color: #fff;
+            box-shadow: 0 0 15px var(--accent-purple);
+            transform: translateX(-3px);
+        }
+
+        /* Header Title */
+        .showcase-header {
+            text-align: center;
+            padding: 20px 20px 40px;
+        }
+
+        .showcase-header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .accent-purple {
+            color: var(--accent-purple);
+            text-shadow: 0 0 10px rgba(188, 19, 254, 0.5);
+        }
+
+        .showcase-header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Layout Grid Portfolio */
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 4% 60px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 4px solid var(--accent-purple);
+            padding-left: 15px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .media-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .media-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-purple);
+            box-shadow: 0 12px 30px rgba(188, 19, 254, 0.25);
+        }
+
+        .media-preview {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background: #000;
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .media-info {
+            padding: 20px;
+        }
+
+        .media-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .media-info p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .badge-tag {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            border-radius: 12px;
+            background: rgba(62, 0, 233, 0.2);
+            color: #8c62ff;
+            border: 1px solid rgba(62, 0, 233, 0.4);
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        footer {
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(7, 3, 13, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        footer p {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 1.5px;
+        }
+
+        @media (max-width: 600px) {
+            body { padding-top: 120px; }
+            .showcase-header h1 { font-size: 2.2rem; }
+            .navbar { flex-direction: row; padding: 12px 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Video Background -->
+    <div class="video-container">
+        <video autoplay muted loop playsinline class="video-bg">
+            <source src="SABER.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- Header Navigation -->
+    <nav class="navbar">
+        <div class="logo">AM SHOWCASE</div>
+        <a href="index.html" class="btn-back"><i class="fa-solid fa-arrow-left"></i> Kembali</a>
+    </nav>
+
+    <!-- Header Title -->
+    <header class="showcase-header reveal">
+        <h1>Alight Motion <span class="accent-purple">Gallery</span></h1>
+        <p>Kumpulan karya desain grafis, poster, dan hasil pengeditan video menggunakan Alight Motion.</p>
+    </header>
+
+    <!-- SECTION 1: Design & Graphic Showcase (Atas) -->
+    <section class="section-container">
+        <h2 class="section-title reveal"><i class="fa-solid fa-image accent-purple"></i> Graphic & Poster Design</h2>
+        
+        <div class="gallery-grid">
+            <!-- Image Item 1 -->
+            <div class="media-card reveal">
+                <img src="am-design1.png" alt="Desain Alight Motion 1" class="media-preview">
+                <div class="media-info">
+                    <h3>Cyberpunk Poster Design</h3>
+                    <p>Desain poster bernuansa futuristik yang digarap penuh lewat layout Alight Motion.</p>
+                    <span class="badge-tag">#DesignPoster</span>
+                </div>
+            </div>
+
+            <!-- Image Item 2 -->
+            <div class="media-card reveal">
+                <img src="am-design2.png" alt="Desain Alight Motion 2" class="media-preview">
+                <div class="media-info">
+                    <h3>Typography Composition</h3>
+                    <p>Eksplorasi penataan teks, masking, dan lighting effect pada Alight Motion.</p>
+                    <span class="badge-tag">#Typography</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: Video & Motion Showcase (Paling Bawah) -->
+    <section class="section-container">
+        <h2 class="section-title reveal"><i class="fa-solid fa-clapperboard accent-purple"></i> Video & Motion Design</h2>
+        
+        <div class="gallery-grid">
+            <!-- Video Item 1 (YouTube Embed) -->
+            <div class="media-card reveal">
+                <iframe class="media-preview" 
+                        src="https://www.youtube.com/embed/KODE_VIDEO_YOUTUBE_1" 
+                        title="AM Preset / Motion Design 1" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>
+                <div class="media-info">
+                    <h3>AM Preset / Motion Design 1</h3>
+                    <p>Eksperimen efek transisi smooth dan grafik animasi typography pada Alight Motion.</p>
+                    <span class="badge-tag">#MotionGraphic</span>
+                </div>
+            </div>
+
+            <!-- Video Item 2 (YouTube Embed) -->
+            <div class="media-card reveal">
+                <iframe class="media-preview" 
+                        src="https://www.youtube.com/embed/KODE_VIDEO_YOUTUBE_2" 
+                        title="AM Video Editing 2" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>
+                <div class="media-info">
+                    <h3>AM Video Editing 2</h3>
+                    <p>Hasil pengeditan video dengan pewarnaan (color grading) khusus dan efek visual neon.</p>
+                    <span class="badge-tag">#VideoEditing</span>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>// Crafted by Flutter with Zelta // 2026 // Bandung</p>
+    </footer>
+
+    <!-- Scroll Reveal Script -->
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 80) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
+    </script>
+</body>
+</html>
